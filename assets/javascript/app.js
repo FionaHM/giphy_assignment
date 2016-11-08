@@ -37,33 +37,40 @@ $('document').ready(function(){
                 if (response.data.length !== 0 ){
                     for (var i=0; i < response.data.length; i++ ){
                         // console.log("inhere");
+                        var imageID = '#image' + i;
                         var d = $('<p> Rating: '+ response.data[i].rating + '</p>');
                         var c =  $('<img/>', {
                                 class: 'newimage',
                                 id: 'image' + i,
                                 src: response.data[i].images.fixed_height_still.url,
                                 alt: queryTerm,
-                                'data-state': 'still',
+                                // 'data-state': 'still',
                                 'data-still': response.data[i].images.fixed_height_still.url,
                                 'data-animate': response.data[i].images.fixed_height.url,
                                 });
                        
+                        
+                       
         
                         $('#displayGiphys').append(d);
                         $('#displayGiphys').append(c);
+                     
+                        $(imageID).data('state','still');
+                        // $(imageID).data('state','still');
 
                         var currentImage = '#image' + i ;
                         
                         $(currentImage).on('click', function(){
+                            console.log($(this).data('state'));
                             if ($(this).data('state') === 'still'){
                                 //change the state from still to animate
-                                $(this).attr('data-state', 'animate');
+                                $(this).data('state','animate');
                                 $(this).attr('src', $(this).data('animate'));
 
 
                             } 
                             else if ($(this).data('state') === 'animate'){
-                                $(this).attr('data-state', 'still');
+                                $(this).data('state', 'still');
                                 $(this).attr('src', $(this).data('still'));
                             }
 
