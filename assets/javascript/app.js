@@ -1,6 +1,6 @@
 $('document').ready(function(){
     // set initial topics list
-    var topics = ['poirot', 'sherlock holmes', 'miss marple', 'ironside', 'colombo', 'cagney and lacey', 'mary', 'mike', 'jane', 'mary', 'mike', 'jane', 'mary', 'mike', 'jane', 'mary', 'mike', 'jane', ];
+    var topics = ['Hercule Poirot', 'Sherlock Holmes', 'Miss Marple', 'Nancy Drew', 'Columbo', 'Cagney and Lacey', 'Inspector Clouseau', 'Veronica Mars ', 'Inspector Frost'];
     var apiKey = 'dc6zaTOxFJmzC'; 
     var responseLimit =  12;  
     var responseRating = 'pg';  // could add radio button for this part
