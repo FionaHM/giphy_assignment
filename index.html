@@ -1,28 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Jquery -->
+	<!-- Jquery -->
 	<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
-<!-- Custom css -->
-	<!-- <link type="text/css" rel="stylesheet" href="assets/css/stylenew.css"> -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Custom css -->
+	<link type="text/css" rel="stylesheet" href="assets/css/style.css"> 
 
 </head>
 <body>
+<div class="container">
+	<div class="page-header text-center"><h1>Giphy Central</h1></div>
 
-<div id="addButtons">
 
+	<!-- Buttons dynamically added here -->
+	<div class="well well-lg">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div id="addButtons"></div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<form class="form-inline text-center" id="getGiphyForm">
+				    <label class="format-form" id="input-label" for="user-input">Add A Search Topic</label>
+					<input class="form-control format-form" type="text" id="user-input" maxlength="20"></label>
+				  	<button type="submit" class="btn btn-primary format-form" id="addUserInput">Submit</button>
+				  	<button type="reset" class="btn btn-primary format-form" id="clearImages">Clear Images</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="text-center">
+				<p>You can search for any topic you like and get up to 12 images and their ratings. </p>
+				<p> Click on an image to animate it and click again to stop animation.</p>
+				<p> The predefined search buttons are for fictional detectives - pick your own topic!</p>
+			</div>
+		</div>
+	</div>
+
+<!-- <button type="button" class="btn btn-primary">Primary</button> -->
+	<!-- GIFS dynamically added here-->
+	<div class="row">
+		<div class="col-md-12 text-center">
+		 	<div class="panel">
+				<div id="displayGiphys"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- javascript file -->
+	<script type="text/javascript" src="assets/javascript/app.js"></script>
 </div>
-
-<form id="getGiphyForm">
-	<label for="user-input">Add an item:</label>
-	<input type="text" id="user-input"></label>
-	<button id="addUserInput" type="submit" >submit</button>
-</form>
-
-<div id="displayGiphys">
-</div>
-
-<!-- javascript file -->
-<script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>
 </html>
