@@ -1,20 +1,14 @@
 $('document').ready(function(){
     // set initial topics list
-    var topics = ['Hercule Poirot', 'Sherlock Holmes', 'Miss Marple', 'Nancy Drew', 'Columbo', 'Cagney and Lacey', 'Inspector Clouseau', 'Veronica Mars ', 'Inspector Frost'];
+    var topics = ['HERCULE POIROT', 'SHERLOCK HOLMES', 'MISS MARPLE', 'NANCY DREW', 'COLUMBO', 'CAGNEY AND LACEY', 'INSPECTOR CLOUSEAU', 'VERONICA MARS', 'INSPECTOR FROST'];
     var apiKey = 'dc6zaTOxFJmzC'; 
-    var responseLimit =  12;  
+    var responseLimit =  10;  
     var responseRating = 'pg';  // could add radio button for this part
     var queryTerm = '';
 
-    // create buttons for the existing predefined topics
-    if (topics.length !== 0 ){
-        for (var i = 0; i < topics.length; i++){
-            buttonHandler(i);
-        }
-    } 
-
+    // functions come next
     function buttonHandler(i){
-        // for (var i = 0; i < length; i++){
+        // adds  buttons for the topics
         var b =  $('<button/>', {
             class: 'newtopic btn btn-primary',
             id: 'button' + i,
@@ -23,37 +17,38 @@ $('document').ready(function(){
         b.attr('data-topic', topics[i]);
         b.html(topics[i]);
         $('#addButtons').append(b);     
-
-        var currentButton = '#button' + i
-
+        var currentButton = '#button' + i;
     }
 
     function hasWhiteSpace(string) {
-        // return /\s/g.test(s);
-        // console.log(string.replace(/ /g, '+'));
+        // replaces spaces in the search term with '+' per API guide
         return string.replace(/\s+/g, '+');
     }
 
-    // Event Handlers
-    // Clears Images
+    // Start of Event Handlers
     $('#getGiphyForm').on('reset', function(e){
-             $('#displayGiphys').empty();
+        // clears images
+        $('#displayGiphys').empty();
     })
-    // submits new topic
+
+    // Event handler for submit button to create new topic
     $('#getGiphyForm').on('submit', function(e){
-        // get all the inputs into an array.
         e.preventDefault(); // stops form reloading page on submit
         // capture user input
-        queryTerm = $('#user-input').val().trim(); 
-        // empty the input box
+        var queryTermRaw = $('#user-input').val().trim(); 
+        queryTerm = queryTermRaw.toUpperCase();
+        // empty the input box for the next time
         $('#user-input').val('');
         // if nothing entered as user to enter a valid search term
         if (queryTerm === "" ) {
-            alert("please enter a valid search term");
+            $('.modal').show();
+            $('.modal-body').html('<p> Please enter a valid search term. </p>');
         }
-        else if (topics.includes(queryTerm))
+        else if (topics.includes(queryTerm.toUpperCase()))
         {
-            alert("this topic already exists");
+            // alert("this topic already exists");
+            $('.modal').show();
+            $('.modal-body').html('<p> This topic already exists. </p>');
         }  // check if topic  already there
         else
         {
@@ -66,19 +61,19 @@ $('document').ready(function(){
             }
         }
     });
-    // onclick event handler for the new buttons
+
+    // Event handler for the buttons to fetch data from API
     $(document.body).on('click', '.newtopic', function(){
-        // set query term depending on the button clicked
+        // set queryTerm depending on the button clicked
         queryTerm = $(this).val();
-        // check for spaces and put in "+"
+        // check for spaces and put in "+" instead per API requirements
         var newQueryTerm = hasWhiteSpace(queryTerm);
         var buttonID = $(this).attr('id');
         // remove previous images by emptying div, if there were any there
         $('#displayGiphys').empty();
         // create API query string
         var queryURL = 'http://api.giphy.com/v1/gifs/search?q=' + newQueryTerm + '&api_key=' + apiKey + '&rating='  + responseRating + '&limit=' + responseLimit;
-        // use ajax to access API endpoint and get a response
-        console.log(queryURL);
+        // use Ajax to access API endpoint and get a response
         $.ajax({
             url: queryURL,
             method: 'GET'
@@ -99,8 +94,6 @@ $('document').ready(function(){
                             'data-animate': response.data[i].images.fixed_height.url,
                             });
                    
-                    // $('#displayGiphys').append(d);
-                    // $('#displayGiphys').append(c);
                     $(e).append(d);
                     $(e).append(c);
                     $('#displayGiphys').append(e);
@@ -114,7 +107,8 @@ $('document').ready(function(){
             } 
             else{
                 // tell user no results
-                alert("No results for this topic");
+                $('.modal').show();
+                $('.modal-body').html('<p> No results avaiable for this topic. </p>');
                 // remove button
                 $('#' + buttonID).remove();
             }
@@ -135,4 +129,18 @@ $('document').ready(function(){
             $(this).attr('src', $(this).data('still'));
         }
     }); 
+
+    // onclick event handler for modal close button
+    $(document.body).on('click', '.close', function(){
+        $('.modal').hide();
+
+    })
+
+    // create buttons for the existing predefined topics
+    if (topics.length !== 0 ){
+        for (var i = 0; i < topics.length; i++){
+            buttonHandler(i);
+        }
+    } 
+
 });
