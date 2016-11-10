@@ -84,7 +84,8 @@ $('document').ready(function(){
                 for (var i=0; i < response.data.length; i++ ){
                     var imageID = '#image' + i;
                     var e = $('<div class="image-plus-rating text-center">');
-                    var d = $('<p class="image-rating"> Rating: '+ response.data[i].rating + '</p>');
+                    var imgRating = (response.data[i].rating).toUpperCase();
+                    var d = $('<p class="image-rating"> <strong>Rating:</strong> '+ imgRating + '</p>');
                     var c =  $('<img/>', {
                             class: 'newimage',
                             id: 'image' + i,
