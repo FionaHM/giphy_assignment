@@ -72,7 +72,7 @@ $('document').ready(function(){
         // remove previous images by emptying div, if there were any there
         $('#displayGiphys').empty();
         // create API query string
-        var queryURL = 'http://api.giphy.com/v1/gifs/search?q=' + newQueryTerm + '&api_key=' + apiKey + '&rating='  + responseRating + '&limit=' + responseLimit;
+        var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + newQueryTerm + '&api_key=' + apiKey + '&rating='  + responseRating + '&limit=' + responseLimit;
         // use Ajax to access API endpoint and get a response
         $.ajax({
             url: queryURL,
@@ -94,8 +94,9 @@ $('document').ready(function(){
                             'data-animate': response.data[i].images.fixed_height.url,
                             });
                    
-                    $(e).append(d);
                     $(e).append(c);
+                    $(e).append(d);
+                    
                     $('#displayGiphys').append(e);
 
                     // set the state using the data method - if I put in the above var c
